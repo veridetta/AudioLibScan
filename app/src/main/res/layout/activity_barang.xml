@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- Background image full width and height -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@color/colorPrimary"
+        android:scaleType="centerCrop" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@android:color/transparent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/_20sdp">
+            <!-- Card view with white background -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/_270sdp"
+                android:layout_marginTop="50dp"
+                android:padding="@dimen/_8sdp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@drawable/rounded_button_background"
+                android:backgroundTint="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/top_rounded_bg"
+                    android:padding="16dp">
+                    <ImageView
+                        android:id="@+id/fotoBarang"
+                        android:layout_width="@dimen/_140sdp"
+                        android:layout_height="@dimen/_130sdp"
+                        android:src="@drawable/no_image"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="@dimen/_5sdp" />
+                    <TextView
+                        android:id="@+id/tvNamaBarang"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nama Barang"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:textSize="@dimen/_20sdp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/tvKodeBarang"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="kodebarang"
+                        android:textSize="@dimen/_15sdp" />
+                    <TextView
+                        android:id="@+id/tvPenjelasan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Silahkan tekan tombol dibawah untuk memulai scan"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:textSize="@dimen/_15sdp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_20sdp">
+                        <LinearLayout
+                            android:id="@+id/btnBack"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/rounded_button_background"
+                            android:gravity="center_vertical"
+                            android:backgroundTint="@color/secondary"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:layout_width="@dimen/_38sdp"
+                                android:layout_height="@dimen/_38sdp"
+                                android:src="@drawable/ic_back"
+                                app:tint="@color/white"
+                                android:backgroundTint="@color/colorPrimary"
+                                android:layout_gravity="center_vertical"
+                                android:background="@drawable/background_rounded_blue"
+                                android:layout_marginRight="@dimen/_5sdp"/>
+                            <TextView
+                                android:id="@+id/tvScan"
+                                android:enabled="false"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginRight="@dimen/_8sdp"
+                                android:textSize="@dimen/_13sdp"
+                                android:textStyle="bold"
+                                android:textColor="@color/white"
+                                android:text="Kembali"
+                                android:background="@null" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+    <include layout="@layout/ly_scanning" />
+</RelativeLayout>

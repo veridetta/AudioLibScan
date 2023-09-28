@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/coordinator"
+    tools:context=".ui.auth.EditActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_button_background"
+                        android:backgroundTint="@color/semi"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:src="@drawable/ic_barang"
+                            app:tint="@color/white"
+                            android:layout_gravity="center_vertical"
+                            android:background="@drawable/background_rounded_blue"
+                            android:layout_marginRight="@dimen/_5sdp" />
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etNamaBarang"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="@string/nama_barang"
+                            android:background="@null" />
+
+                    </LinearLayout>
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_button_background"
+                        android:backgroundTint="@color/semi"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:src="@drawable/ic_qr_code"
+                            app:tint="@color/white"
+                            android:layout_gravity="center_vertical"
+                            android:background="@drawable/background_rounded_blue"
+                            android:layout_marginRight="@dimen/_5sdp" />
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etKodeBarang"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="@string/kode_barang"
+                            android:background="@null" />
+
+                    </LinearLayout>
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_button_background"
+                        android:backgroundTint="@color/semi"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:src="@drawable/ic_desc"
+                            app:tint="@color/white"
+                            android:layout_gravity="center_vertical"
+                            android:background="@drawable/background_rounded_blue"
+                            android:layout_marginRight="@dimen/_5sdp" />
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etPenjelasan"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:minLines="4"
+                            android:maxLines="8"
+                            android:hint="@string/penjelasan"
+                            android:background="@null" />
+
+                    </LinearLayout>
+                </com.google.android.material.textfield.TextInputLayout>
+                <LinearLayout
+                    android:id="@+id/btnCover"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/semi"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:background="@drawable/background_rounded_blue"
+                    android:padding="@dimen/_10sdp">
+                    <ImageView
+                        android:id="@+id/coverReplace"
+                        android:layout_width="@dimen/_120sdp"
+                        android:layout_height="@dimen/_120sdp"
+                        android:src="@drawable/no_image"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="@dimen/_5sdp" />
+                </LinearLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_gravity="center">
+                    <LinearLayout
+                        android:id="@+id/btnUploadCover"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_button_background"
+                        android:backgroundTint="@color/semi"
+                        android:paddingEnd="@dimen/_12sdp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:src="@drawable/ic_upload"
+                            android:layout_gravity="center_vertical"
+                            app:tint="@color/white"
+                            android:background="@drawable/background_rounded_blue"
+                            android:layout_marginRight="@dimen/_5sdp" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingStart="@dimen/_8sdp"
+                            android:textColor="@color/secondary"
+                            android:gravity="center_vertical"
+                            android:text="@string/pilih_foto"
+                            android:background="@null" />
+
+                    </LinearLayout>
+                </com.google.android.material.textfield.TextInputLayout>
+                <!-- Button to add the product -->
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnAdd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/simpan_barang"
+                    android:textSize="@dimen/_15sdp"
+                    android:layout_marginTop="16dp"
+                    android:textColor="@color/white"
+                    android:padding="@dimen/_8sdp"
+                    android:background="@drawable/rounded_button_background" />
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

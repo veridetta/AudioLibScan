@@ -1,0 +1,126 @@
+<!-- item_product.xml -->
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/_15sdp" android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    app:cardUseCompatPadding="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+        <ImageView
+            android:id="@+id/fotoBarang"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_100sdp"
+            android:scaleType="centerCrop"
+            android:layout_gravity="center"
+            android:src="@drawable/no_image" />
+
+        <TextView
+            android:id="@+id/tvNamaBarang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nama Barang"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/tvKodeBarang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kode"
+            android:textSize="14sp"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginTop="4dp" />
+
+        <TextView
+            android:id="@+id/tvPenjelasanBarang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Penjelasan"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginTop="8dp" />
+
+        <!-- Add more TextViews or ImageViews for additional product details if needed -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginTop="8dp">
+            <LinearLayout
+                android:id="@+id/lyiconEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:gravity="end"
+                android:layout_weight="2">
+                <LinearLayout
+                    android:id="@+id/btnUbah"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_button_background"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/_13sdp"
+                    android:backgroundTint="@color/secondary"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="@dimen/_26sdp"
+                        android:layout_height="@dimen/_26sdp"
+                        android:src="@drawable/ic_edit"
+                        app:tint="@color/white"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/background_rounded_blue"
+                        android:layout_marginRight="@dimen/_5sdp"/>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etUbah"
+                        android:enabled="false"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginRight="@dimen/_8sdp"
+                        android:textSize="@dimen/_10sdp"
+                        android:hint="Ubah"
+                        android:background="@null" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/btnHapus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_button_background"
+                    android:gravity="center_vertical"
+                    android:backgroundTint="@color/semi_red"
+                    android:layout_marginLeft="@dimen/_13sdp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="@dimen/_26sdp"
+                        android:layout_height="@dimen/_26sdp"
+                        android:src="@drawable/ic_delete"
+                        app:tint="@color/white"
+                        android:layout_gravity="center_vertical"
+                        android:backgroundTint="@color/red"
+                        android:background="@drawable/background_rounded_blue"
+                        android:layout_marginRight="@dimen/_5sdp"/>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etHapus"
+                        android:enabled="false"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginRight="@dimen/_8sdp"
+                        android:textSize="@dimen/_10sdp"
+                        android:hint="Hapus"
+                        android:background="@null" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

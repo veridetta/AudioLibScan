@@ -1,0 +1,117 @@
+<com.facebook.shimmer.ShimmerFrameLayout
+    android:id="@+id/shimmerContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    app:shimmer_duration="1000"
+    app:shimmer_shape="linear"
+    app:shimmer_auto_start="true"
+    layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+            <ImageView
+                android:id="@+id/fotoBarang"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_100sdp"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center"
+                android:src="@drawable/shimmer_rectangle" />
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerNamaBarang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:shimmer_duration="1000"
+                app:shimmer_shape="linear"
+                app:shimmer_auto_start="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp">
+                <TextView
+                    android:id="@+id/textNamaBarang"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:background="@color/black"
+                    />
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerKodeBarang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:shimmer_duration="1000"
+                app:shimmer_shape="linear"
+                app:shimmer_auto_start="true"
+                android:layout_marginTop="4dp">
+                <TextView
+                    android:id="@+id/textKodeBarang"
+                    android:layout_width="@dimen/_120sdp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/shimmer"
+                    android:textSize="@dimen/_14sdp" />
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <!-- Add more TextViews or ImageViews with ShimmerLayout -->
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerPenjelasan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:shimmer_duration="1000"
+                app:shimmer_shape="linear"
+                app:shimmer_auto_start="true"
+                android:layout_marginTop="8dp">
+                <TextView
+                    android:id="@+id/textPenjelasan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_14sdp"
+                    android:background="@color/shimmer" />
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <!-- ... other TextViews or ImageViews with ShimmerLayout ... -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginTop="8dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="start|center_vertical"
+                    android:layout_weight="1">
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/statusIndicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:gravity="center"
+                        android:textSize="@dimen/_10sdp"
+                        android:padding="@dimen/_6sdp"
+                        android:layout_gravity="center_vertical|start"
+                        android:background="@drawable/shimmer_rectangle" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lyiconEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:gravity="end"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:id="@+id/iconEdit"
+                        android:layout_width="@dimen/_26sdp"
+                        android:layout_height="@dimen/_26sdp"
+                        android:background="@color/shimmer" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>

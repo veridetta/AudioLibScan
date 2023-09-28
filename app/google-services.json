@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "159305416995",
+    "project_id": "audio-lib-scan",
+    "storage_bucket": "audio-lib-scan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:159305416995:android:0b6194d09bbe2f05768c96",
+        "android_client_info": {
+          "package_name": "com.vr.audiolibscan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbUnS1nk3JoUnyFsjaQSuruA1yy4KcnFk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
