@@ -24,6 +24,7 @@ import kotlinx.coroutines.tasks.await
 import java.util.UUID
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import com.vr.audiolibscan.MainActivity
 import com.vr.audiolibscan.tools.ImageUtils
 import com.vr.audiolibscan.tools.showSnack
 import kotlinx.coroutines.launch
@@ -112,6 +113,8 @@ class EditActivity : AppCompatActivity() {
             }
         }
         btnBack.setOnClickListener {
+            val intent = Intent(this@EditActivity, AdminActivity::class.java)
+            startActivity(intent)
             finish()
         }
     }
