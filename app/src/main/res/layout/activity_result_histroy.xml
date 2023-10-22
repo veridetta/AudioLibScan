@@ -130,8 +130,8 @@
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
-
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
+    <include layout="@layout/ly_bahasa"/>
 </RelativeLayout>

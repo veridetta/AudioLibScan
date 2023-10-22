@@ -46,8 +46,7 @@ class HistroyActivity : AppCompatActivity() {
             ){ barang -> openBarang(barang) }
         }
         val shimmerContainer = findViewById<ShimmerFrameLayout>(R.id.shimmerContainer)
-        val uid = FirebaseAuth.getInstance().currentUser?.uid
-        uid?.let { readData(shimmerContainer) }
+        readData(shimmerContainer)
 
         recyclerView.adapter = barangAdapter
 
@@ -68,21 +67,19 @@ class HistroyActivity : AppCompatActivity() {
         //get uid dari shared preference
         val sharedPref = getSharedPreferences("user", MODE_PRIVATE)
         val uid = sharedPref.getString("uid", "")
-        Log.d(TAG, "UID : $uid")
+        Log.d(TAG, "UIDnya : $uid")
         if (uid != "") {
             shimmerContainer.startShimmer() // Start shimmer effect
             GlobalScope.launch(Dispatchers.IO) {
                 try {
-                    val result = mFirestore.collection("history").get().await()
+                    val result = mFirestore.collection("history").whereEqualTo("uid",uid).get().await()
                     val plants = mutableListOf<BarangModel>()
-                    var jum = 0
                     for (document in result) {
                         val plant = document.toObject(BarangModel::class.java)
                         val docId = document.id
                         plant.documentId = docId
                         plants.add(plant)
                         Log.d(TAG, "Datanya : ${document.id} => ${document.data}")
-                        jum++
                     }
 
                     withContext(Dispatchers.Main) {
@@ -101,6 +98,8 @@ class HistroyActivity : AppCompatActivity() {
                 }
             }
         } else {
+            shimmerContainer.stopShimmer()
+            shimmerContainer.visibility = View.GONE // Hide shimmer container
             showSnack(this@HistroyActivity, "Silahkan scan terlebih dahulu")
         }
     }

@@ -69,4 +69,7 @@ dependencies {
     //qr code
     //implementation 'com.google.zxing:core:3.4.1'
     implementation 'com.github.yuriy-budiyev:code-scanner:2.3.2'
+    implementation 'com.google.mlkit:translate:17.0.1'
+
+
 }

@@ -134,5 +134,6 @@
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
+    <include layout="@layout/ly_bahasa" android:visibility="gone" />
     <include layout="@layout/ly_scanning" android:visibility="gone" />
 </RelativeLayout>

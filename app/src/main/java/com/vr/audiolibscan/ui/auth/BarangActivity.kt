@@ -8,6 +8,7 @@ import android.os.Environment
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
@@ -16,6 +17,11 @@ import androidx.core.content.FileProvider
 import com.bumptech.glide.Glide
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.mlkit.common.model.DownloadConditions
+import com.google.mlkit.nl.translate.TranslateLanguage
+import com.google.mlkit.nl.translate.Translation
+import com.google.mlkit.nl.translate.Translator
+import com.google.mlkit.nl.translate.TranslatorOptions
 import com.vr.audiolibscan.MainActivity
 import com.vr.audiolibscan.R
 import com.vr.audiolibscan.model.BarangModel
@@ -42,7 +48,14 @@ class BarangActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     lateinit var tvPenjelasan : TextView
     lateinit var fotoBarang : ImageView
     lateinit var lyScan : RelativeLayout
+    lateinit var lyBahasa : RelativeLayout
     lateinit var imgScan : ImageView
+    lateinit var btnIndo : Button
+    lateinit var btnInggris : Button
+    lateinit var translator:Translator
+    private var audioLanguage = Locale.US // Bahasa Inggris (default)
+
+    var ing = false
     var tPenjelasan=""
     var tnama = ""
     var kodeBarang=""
@@ -55,7 +68,9 @@ class BarangActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_barang)
         initView()
+        initTermjemahan()
         initClick()
+
     }
 
     fun initView(){
@@ -66,12 +81,36 @@ class BarangActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         tvKodeBarang = findViewById(R.id.tvKodeBarang)
         tvPenjelasan = findViewById(R.id.tvPenjelasan)
         fotoBarang = findViewById(R.id.fotoBarang)
+        btnIndo = findViewById(R.id.btnIndo)
+        btnInggris = findViewById(R.id.btnInggris)
+        lyBahasa = findViewById(R.id.lyBahasa)
         lyScan = findViewById(R.id.lyScan)
+        lyBahasa.visibility = View.VISIBLE
         imgScan = findViewById(R.id.imgScan)
-        Glide.with(this).load(R.drawable.qr_scan).into(imgScan)
         textToSpeech = TextToSpeech(this, this)
         initIntent()
-        getData(kodeBarang)
+    }
+    fun initTermjemahan(){
+        // Inisialisasi model terjemahan
+        var bing = btnInggris.text.toString()
+        btnInggris.text = bing + " (Loading...)"
+        val options = TranslatorOptions.Builder()
+            .setSourceLanguage(TranslateLanguage.INDONESIAN) // Bahasa asal (dalam contoh ini bahasa Indonesia)
+            .setTargetLanguage(TranslateLanguage.ENGLISH)    // Bahasa yang dituju (bahasa Inggris)
+            .build()
+        translator = Translation.getClient(options)
+        translator.downloadModelIfNeeded()
+            .addOnSuccessListener {
+                // Model terjemahan sudah diunduh atau telah diunduh saat ini
+                // Anda dapat mengaktifkan tombol Inggris atau melakukan terjemahan di sini
+                btnInggris.isEnabled = true
+                btnInggris.text = bing
+            }
+            .addOnFailureListener { exception ->
+                // Model belum diunduh dan ada kesalahan unduhan model
+                // Anda dapat menangani kesalahan atau memberikan pesan kesalahan kepada pengguna
+                showSnack(this@BarangActivity, "Terjadi kesalahan")
+            }
     }
     fun initClick(){
         btnBack.setOnClickListener {
@@ -83,6 +122,39 @@ class BarangActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
         btnDownload.setOnClickListener {
             saveTextToAudioFile(tPenjelasan,tnama)
+        }
+        btnIndo.setOnClickListener {
+            lyBahasa.visibility = View.GONE
+            lyScan.visibility = View.VISIBLE
+            Glide.with(this).load(R.drawable.qr_scan).into(imgScan)
+            // Atur bahasa ke bahasa Indonesia
+            audioLanguage = Locale("id", "ID")
+
+            // Jika TTS sudah diinisialisasi, ganti bahasa
+            if (textToSpeech.isLanguageAvailable(audioLanguage) != TextToSpeech.LANG_MISSING_DATA) {
+                textToSpeech.language = audioLanguage
+            } else {
+                // Tangani kesalahan jika bahasa tidak tersedia
+                showSnack(this@BarangActivity, "Terjadi kesalahan")
+            }
+            getData(kodeBarang)
+        }
+        btnInggris.setOnClickListener {
+            lyBahasa.visibility = View.GONE
+            lyScan.visibility = View.VISIBLE
+            Glide.with(this).load(R.drawable.qr_scan).into(imgScan)
+            ing = true
+            // Atur bahasa ke bahasa Inggris
+            audioLanguage = Locale.US
+
+            // Jika TTS sudah diinisialisasi, ganti bahasa
+            if (textToSpeech.isLanguageAvailable(audioLanguage) != TextToSpeech.LANG_MISSING_DATA) {
+                textToSpeech.language = audioLanguage
+            } else {
+                // Tangani kesalahan jika bahasa tidak tersedia
+                showSnack(this@BarangActivity, "Terjadi kesalahan")
+            }
+            getData(kodeBarang)
         }
     }
 
@@ -115,9 +187,27 @@ class BarangActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                     var tNama = "dengan nama barang adalah "+barangs[0].nama +" ."
                     var tKode = "Kode Barang :"+ barangs[0].kodeBarang +" , berhasil di scan."
                      tPenjelasan = tKode + " "+ tNama + " "+ barangs[0].penjelasan
-                    speakText(tPenjelasan)
+                    if(ing){
+                        translator.translate(tPenjelasan)
+                            .addOnSuccessListener { translatedText ->
+                                tvPenjelasan.text = translatedText
+                                speakText(translatedText)
+                            }
+                            .addOnFailureListener { exception ->
+                                // Terjemahan gagal
+                                // ...
+                                showSnack(this@BarangActivity, "Terjadi kesalahan")
+                                val intent = Intent(this@BarangActivity, MainActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            }
+                    }else{
+                        speakText(tPenjelasan)
+                    }
+                    runOnUiThread {
+                        lyScan.visibility = View.GONE
+                    }
                 }
-                lyScan.visibility = View.GONE
             } catch (e: Exception) {
                 Log.w(TAG, "Error getting documents : $e")
                 showSnack(this@BarangActivity, "Terjadi kesalahan")
@@ -144,6 +234,11 @@ class BarangActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
     override fun onInit(status: Int) {
         AudioSiap = status == TextToSpeech.SUCCESS
+
+        // Set bahasa TTS saat inisialisasi
+        if (AudioSiap) {
+            textToSpeech.language = audioLanguage
+        }
     }
     fun saveTextToAudioFile(text: String, nama :String) {
         if (AudioSiap) {

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/lyBahasa"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- Background image full width and height -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@color/colorPrimary"
+        android:alpha="0.5"
+        android:scaleType="centerCrop" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@android:color/transparent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/_20sdp">
+            <!-- Card view with white background -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/_270sdp"
+                android:layout_marginTop="50dp"
+                android:padding="@dimen/_8sdp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/rounded_button_background"
+                android:backgroundTint="@color/white">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pilih Bahasa :"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:textSize="@dimen/_20sdp"
+                    android:textStyle="bold" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnIndo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Bahasa Indonesia"
+                    android:textSize="@dimen/_15sdp"
+                    android:layout_marginTop="16dp"
+                    android:textColor="@color/white"
+                    android:padding="@dimen/_8sdp"
+                    android:background="@drawable/rounded_button_background" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnInggris"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Bahasa Inggris"
+                    android:textSize="@dimen/_15sdp"
+                    android:layout_marginTop="16dp"
+                    android:textColor="@color/white"
+                    android:padding="@dimen/_8sdp"
+                    android:background="@drawable/rounded_button_background" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>
