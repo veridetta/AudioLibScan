@@ -62,8 +62,8 @@ class AdminActivity : AppCompatActivity() {
                     true
                 }
                 R.id.menu_add -> {
-                    val orderFragment = AddFragment()
-                    replaceFragment(orderFragment)
+                    val addFragment = AddFragment()
+                    replaceFragment(addFragment)
                     true
                 }
 

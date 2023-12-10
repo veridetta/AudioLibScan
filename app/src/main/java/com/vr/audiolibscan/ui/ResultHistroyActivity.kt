@@ -158,7 +158,9 @@ class ResultHistroyActivity : AppCompatActivity(), TextToSpeech.OnInitListener  
         tPenjelasan = kodeBarang + " "+ tnama + " "+ tPenjelasan
     }
     private fun speakText(text: String) {
-        textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
+        val volume = Bundle()
+        volume.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, 1f)
+        textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, volume, null)
     }
     private fun stopSpeaking() {
         if (textToSpeech.isSpeaking) {

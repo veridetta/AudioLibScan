@@ -218,6 +218,8 @@ class BarangActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
     }
     private fun speakText(text: String) {
+        val volume = Bundle()
+        volume.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, 1f)
         textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
     }
     private fun stopSpeaking() {
