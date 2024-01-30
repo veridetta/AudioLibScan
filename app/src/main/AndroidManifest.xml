@@ -30,6 +30,9 @@
         android:theme="@style/Theme.AudioLibScan"
         tools:targetApi="31">
         <activity
+            android:name=".ui.ScanDirectActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.ResultHistroyActivity"
             android:exported="false" />
         <activity

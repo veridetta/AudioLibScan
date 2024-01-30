@@ -17,6 +17,7 @@ import com.vr.audiolibscan.R
 import com.vr.audiolibscan.adapter.BarangAdapter
 import com.vr.audiolibscan.adapter.HistoryAdapter
 import com.vr.audiolibscan.model.BarangModel
+import com.vr.audiolibscan.tools.saveBarang
 import com.vr.audiolibscan.tools.showSnack
 import com.vr.audiolibscan.ui.auth.EditActivity
 import kotlinx.coroutines.Dispatchers
@@ -113,6 +114,7 @@ class HistroyActivity : AppCompatActivity() {
         intent.putExtra("penjelasan", barang.penjelasan)
         intent.putExtra("barangId", barang.barangId)
         intent.putExtra("uid", barang.uid)
+        saveBarang(barang, this@HistroyActivity)
         startActivity(intent)
     }
 }

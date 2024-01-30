@@ -34,6 +34,7 @@ android {
     buildFeatures {
         viewBinding true
     }
+
 }
 
 dependencies {
@@ -70,6 +71,11 @@ dependencies {
     //implementation 'com.google.zxing:core:3.4.1'
     implementation 'com.github.yuriy-budiyev:code-scanner:2.3.2'
     implementation 'com.google.mlkit:translate:17.0.1'
+    // Use this for both Android and JVM
+// Use this for both Android and JVM
+//    implementation("io.github.g0dkar:qrcode-kotlin:4.1.1")
+//    implementation 'com.github.androidmads:QRGenerator:1.0.1'
+    implementation 'com.google.zxing:core:3.4.0'
 
 
 }

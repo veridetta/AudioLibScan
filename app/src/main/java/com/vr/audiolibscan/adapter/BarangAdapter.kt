@@ -19,6 +19,7 @@ class BarangAdapter(
     val context: Context,
     private val onEditClickListener: (BarangModel) -> Unit,
     private val onHapusClickListener: (BarangModel) -> Unit,
+    private val onShareClickListener: (BarangModel) -> Unit,
 ) : RecyclerView.Adapter<BarangAdapter.ProductViewHolder>() {
     public var filteredBarangList: MutableList<BarangModel> = mutableListOf()
     init {
@@ -73,6 +74,7 @@ class BarangAdapter(
             .into(holder.imgBarang)
         holder.btnUbah.setOnClickListener { onEditClickListener(currentBarang) }
         holder.btnHapus.setOnClickListener { onHapusClickListener(currentBarang) }
+        holder.btnShare.setOnClickListener { onShareClickListener(currentBarang) }
     }
 
     inner class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -82,5 +84,6 @@ class BarangAdapter(
         val imgBarang: ImageView = itemView.findViewById(R.id.fotoBarang)
         val btnUbah: LinearLayout = itemView.findViewById(R.id.btnUbah)
         val btnHapus: LinearLayout = itemView.findViewById(R.id.btnHapus)
+        val btnShare: LinearLayout = itemView.findViewById(R.id.btnShare)
     }
 }

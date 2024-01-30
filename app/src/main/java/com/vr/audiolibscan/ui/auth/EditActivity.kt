@@ -25,11 +25,15 @@ import java.util.UUID
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.vr.audiolibscan.MainActivity
+import com.vr.audiolibscan.databinding.ActivityEditBinding
+import com.vr.audiolibscan.databinding.FragmentAddBinding
 import com.vr.audiolibscan.tools.ImageUtils
+import com.vr.audiolibscan.tools.getBarang
 import com.vr.audiolibscan.tools.showSnack
 import kotlinx.coroutines.launch
 
 class EditActivity : AppCompatActivity() {
+    lateinit var binding: ActivityEditBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
     private lateinit var storage: FirebaseStorage
@@ -46,9 +50,34 @@ class EditActivity : AppCompatActivity() {
     private val REQUEST_CODE_COVER = 1
     private var readyUpload = false
 
+    var namaBarang = ""
+    var penjelasan = ""
+    var coverImageUrl = ""
+    //generate kode barang
+    var kodeBarang = ""
+    //meta
+
+    var title = ""
+    var creator = ""
+    var subject = ""
+    var description = ""
+    var publisher = ""
+    var contributor = ""
+    var date = ""
+    var type = ""
+    var format = ""
+    var identifier = ""
+    var source = ""
+    var language = ""
+    var relation = ""
+    var coverage = ""
+    var rights = ""
+    var docId=""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edit)
+        binding = ActivityEditBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         initView()
         initClick()
         initIntent()
@@ -66,7 +95,6 @@ class EditActivity : AppCompatActivity() {
         btnBack = findViewById(R.id.btnBack)
         btnAdd = findViewById(R.id.btnAdd)
         etNamaBarang = findViewById(R.id.etNamaBarang)
-        etKodeBarang = findViewById(R.id.etKodeBarang)
         etPenjelasan = findViewById(R.id.etPenjelasan)
     }
     private fun initClick(){
@@ -77,13 +105,34 @@ class EditActivity : AppCompatActivity() {
             startActivityForResult(intent, REQUEST_CODE_COVER)
         }
         btnAdd.setOnClickListener {
-            val namaBarang = etNamaBarang.text.toString()
-            val kodeBarang = etKodeBarang.text.toString()
-            val penjelasan = etPenjelasan.text.toString()
-            val documentId = intent.getStringExtra("documentId")
+             namaBarang = etNamaBarang.text.toString()
+//             kodeBarang = etKodeBarang.text.toString()
+             penjelasan = etPenjelasan.text.toString()
+            //meta
+            title = binding.etMetaTitle.text.toString()
+            creator = binding.etMetaCreator.text.toString()
+            subject = binding.etMetaSubject.text.toString()
+            description = binding.etMetaDescription.text.toString()
+            publisher = binding.etMetaPublisher.text.toString()
+            contributor = binding.etMetaContributor.text.toString()
+            date = binding.etMetaDate.text.toString()
+            type = binding.etMetaType.text.toString()
+            format = binding.etMetaFormat.text.toString()
+            identifier = binding.etMetaIdentifier.text.toString()
+            source = binding.etMetaSource.text.toString()
+            language = binding.etMetaLanguage.text.toString()
+            relation = binding.etMetaRelation.text.toString()
+            coverage = binding.etMetaCoverage.text.toString()
+            rights = binding.etMetaRights.text.toString()
+            docId = intent.getStringExtra("documentId").toString()
 
             // Periksa apakah semua field yang diperlukan terisi
-            if (namaBarang.isNotEmpty() && kodeBarang.isNotEmpty() && penjelasan.isNotEmpty()) {
+            if (namaBarang.isNotEmpty()  && penjelasan.isNotEmpty()
+                && title.isNotEmpty() && creator.isNotEmpty() && subject.isNotEmpty() && description.isNotEmpty()
+                && publisher.isNotEmpty() && contributor.isNotEmpty() && date.isNotEmpty() && type.isNotEmpty()
+                && format.isNotEmpty() && identifier.isNotEmpty() && source.isNotEmpty() && language.isNotEmpty()
+                && relation.isNotEmpty() && coverage.isNotEmpty() && rights.isNotEmpty()
+                ) {
                 // Tampilkan dialog progress saat mengunggah
                 val progressDialog = ProgressDialog(this@EditActivity)
                 progressDialog.setMessage("Mengunggah barang...")
@@ -92,20 +141,13 @@ class EditActivity : AppCompatActivity() {
                 // Kompres dan unggah gambar di latar belakang
                 lifecycleScope.launch(Dispatchers.IO) {
                     // Kompres dan unggah foto sampul
-                    var coverImageUrl = ""
                     if (readyUpload){
                         coverImageUrl = uploadImage(imagesList[0])
                     }else{
                         coverImageUrl = intent.getStringExtra("fotoBarang").toString()
                     }
                     // Tambahkan detail produk ke Firestore
-                    addBarangToFirestore(
-                        namaBarang,
-                        kodeBarang,
-                        penjelasan,
-                        coverImageUrl,
-                        documentId.toString()
-                    )
+                    addBarangToFirestore()
                     progressDialog.dismiss()
                 }
             } else {
@@ -125,13 +167,31 @@ class EditActivity : AppCompatActivity() {
         val fotoBarang = intent.getStringExtra("fotoBarang")
 
         etNamaBarang.setText(namaBarang)
-        etKodeBarang.setText(kodeBarang)
         etPenjelasan.setText(penjelasan)
+        coverImageUrl= fotoBarang.toString()
         Glide.with(this)
             .load(fotoBarang)
             .override(270,270).centerCrop()
             .placeholder(R.drawable.no_image)
             .into(coverReplace)
+
+        val barang = getBarang(this)
+        //meta
+        binding.etMetaTitle.setText(barang.title)
+        binding.etMetaCreator.setText(barang.creator)
+        binding.etMetaSubject.setText(barang.subject)
+        binding.etMetaDescription.setText(barang.description)
+        binding.etMetaPublisher.setText(barang.publisher)
+        binding.etMetaContributor.setText(barang.contributor)
+        binding.etMetaDate.setText(barang.date)
+        binding.etMetaType.setText(barang.type)
+        binding.etMetaFormat.setText(barang.format)
+        binding.etMetaIdentifier.setText(barang.identifier)
+        binding.etMetaSource.setText(barang.source)
+        binding.etMetaLanguage.setText(barang.language)
+        binding.etMetaRelation.setText(barang.relation)
+        binding.etMetaCoverage.setText(barang.coverage)
+        binding.etMetaRights.setText(barang.rights)
     }
     private suspend fun uploadImage(imageUri: Uri?): String {
         val compressedImageUri = compressImage(this,imageUri)
@@ -157,24 +217,32 @@ class EditActivity : AppCompatActivity() {
 
         return compressedImageUri
     }
-    private fun addBarangToFirestore(
-        namaBarang: String,
-        kodeBarang: String,
-        penjelasan: String,
-        coverImageUrl: String,
-        documentId : String
-    ) {
+    private fun addBarangToFirestore() {
         val barangData = hashMapOf(
             "nama" to namaBarang,
-            "kodeBarang" to kodeBarang,
             "penjelasan" to penjelasan,
             "fotoBarang" to coverImageUrl,
+            "title" to title,
+            "creator" to creator,
+            "subject" to subject,
+            "description" to description,
+            "publisher" to publisher,
+            "contributor" to contributor,
+            "date" to date,
+            "type" to type,
+            "format" to format,
+            "identifier" to identifier,
+            "source" to source,
+            "language" to language,
+            "relation" to relation,
+            "coverage" to coverage,
+            "rights" to rights
         )
 
         val db = FirebaseFirestore.getInstance()
         // Add the product data to Firestore
         db.collection("barang")
-            .document(documentId)
+            .document(docId)
             .update(barangData as Map<String, Any>)
             .addOnSuccessListener { documentReference ->
                 showSnack(this,"Berhasil menyimpan barang")
@@ -198,7 +266,12 @@ class EditActivity : AppCompatActivity() {
                     // Ambil URI gambar yang dipilih dari galeri
                     val selectedImageUri = data?.data
                     // Tampilkan gambar yang dipilih ke imageView coverReplace
-                    coverReplace.setImageURI(selectedImageUri)
+                    //glide
+                    Glide.with(this)
+                        .load(selectedImageUri)
+                        .override(270,270).centerCrop()
+                        .placeholder(R.drawable.no_image)
+                        .into(coverReplace)
                     // Simpan URI gambar ke dalam list untuk penggunaan nanti
                     imagesList[0] = selectedImageUri
                     readyUpload = true

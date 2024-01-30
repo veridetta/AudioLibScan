@@ -1,25 +1,40 @@
 package com.vr.audiolibscan.ui.auth.fragment
 
+import android.R.attr.bitmap
+import android.content.Context.WINDOW_SERVICE
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.Point
 import android.os.Bundle
+import android.os.Environment
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import androidx.fragment.app.Fragment
+import android.view.Display
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.view.WindowManager
 import android.widget.EditText
-import android.widget.LinearLayout
+
+import androidx.core.content.FileProvider
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.EncodeHintType
+import com.google.zxing.MultiFormatWriter
+import com.google.zxing.WriterException
+import com.google.zxing.common.BitMatrix
+import com.google.zxing.qrcode.QRCodeWriter
 import com.vr.audiolibscan.R
 import com.vr.audiolibscan.adapter.BarangAdapter
 import com.vr.audiolibscan.model.BarangModel
+import com.vr.audiolibscan.tools.saveBarang
 import com.vr.audiolibscan.tools.showSnack
 import com.vr.audiolibscan.ui.auth.AdminActivity
 import com.vr.audiolibscan.ui.auth.EditActivity
@@ -28,6 +43,10 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import java.io.File
+import java.io.FileOutputStream
+import java.util.EnumMap
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -41,7 +60,8 @@ class HomeFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     val TAG = "LOAD DATA"
     private val barangList: MutableList<BarangModel> = mutableListOf()
-
+//    lateinit var qrEncoder: QRGEncoder
+    lateinit var gambar:Bitmap
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,7 +80,8 @@ class HomeFragment : Fragment() {
                 barangList,
                 requireContext(),
                 { barang -> editBarang(barang) },
-                { barang -> hapusBarang(barang) }
+                { barang -> hapusBarang(barang) },
+                { barang -> shareQr(barang) }
             )
         }
         val shimmerContainer = itemView.findViewById<ShimmerFrameLayout>(R.id.shimmerContainer)
@@ -122,8 +143,8 @@ class HomeFragment : Fragment() {
         intent.putExtra("penjelasan", barang.penjelasan)
         intent.putExtra("barangId", barang.barangId)
         intent.putExtra("uid", barang.uid)
+        saveBarang(barang, requireContext())
         startActivity(intent)
-        requireActivity().finish()
     }
     private fun hapusBarang(barang: BarangModel) {
         //hapus barang dari firestore
@@ -142,6 +163,94 @@ class HomeFragment : Fragment() {
                 // Error occurred while adding product
                 Log.w(TAG, "Error getting documents : $e")
             }
+    }
+    fun shareQr(barang: BarangModel) {
+//        val qrgEncoder = QRGEncoder(barang.kodeBarang, null, QRGContents.Type.TEXT, 500)
+//        qrgEncoder.colorBlack = Color.BLACK
+//        qrgEncoder.colorWhite = Color.WHITE
+//        try {
+//            val gambar = qrgEncoder.bitmap
+//            val qrgSaver = QRGSaver()
+//            val dir = File(requireContext().getExternalFilesDir(null).toString() + "/QRCode/")
+//            if (!dir.exists()) {
+//                dir.mkdirs()
+//            }
+//
+//            qrgSaver.save(
+//                requireContext().getExternalFilesDir(null).toString() + "/QRCode/" ,
+//                barang.kodeBarang,
+//                gambar,
+//                QRGContents.ImageType.IMAGE_JPEG
+//            )
+//            if (gambar != null) {
+//                Log.d(TAG, "shareQr: $gambar")
+//            }
+//            val file = File(requireContext().getExternalFilesDir(null).toString() + "/QRCode/" + barang.kodeBarang + ".jpg")
+//            shareQRFile(file,barang.kodeBarang.toString())
+//        } catch (e: WriterException) {
+//            Log.e(TAG, "Error creating QR Code: ${e.message}")
+//        }
+//        val roundedSquares = QRCode.ofSquares()
+//            .withColor(Colors.DEEP_SKY_BLUE) // Default is Colors.BLACK
+//            .withSize(25) // Default is 25
+//            .build(barang.kodeBarang.toString())
+//        val roundedSquarePngData = roundedSquares.renderToBytes()
+//
+//        val dir = File(requireContext().getExternalFilesDir(null).toString() + "/QRCode/")
+//            if (!dir.exists()) {
+//                dir.mkdirs()
+//            }
+//        FileOutputStream(File(requireContext().getExternalFilesDir(null).toString() + "/QRCode/" + barang.kodeBarang + ".png")).use { os ->
+//            os.write(roundedSquarePngData)
+//        }
+//        val file = File(requireContext().getExternalFilesDir(null).toString() + "/QRCode/" + barang.kodeBarang + ".png")
+//        shareQRFile(file,barang.kodeBarang.toString())
+
+        val bitmap = generateQRCode(barang.kodeBarang.toString())
+        val dir = File(requireContext().getExternalFilesDir(null).toString() + "/QRCode/")
+        if (!dir.exists()) {
+            dir.mkdirs()
+        }
+        try {
+            val file = File(requireContext().getExternalFilesDir(null).toString() + "/QRCode/" + barang.kodeBarang + ".png")
+            val fOut = FileOutputStream(file)
+            //quality yang bagus
+            bitmap.compress(Bitmap.CompressFormat.PNG, 200, fOut)
+            fOut.flush()
+            fOut.close()
+            shareQRFile(file,barang.kodeBarang.toString())
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    fun shareQRFile(file: File,title:String) {
+        val uri = FileProvider.getUriForFile(requireContext(), "com.vr.audiolibscan.provider", file)
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        shareIntent.type = "image/*"
+        shareIntent.putExtra(Intent.EXTRA_STREAM, uri)
+        startActivity(Intent.createChooser(shareIntent, "Qr Code $title"))
+    }
+    private fun generateQRCode(text: String): Bitmap {
+        val width = 150
+        val height = 150
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val codeWriter = MultiFormatWriter()
+        try {
+            val bitMatrix =
+                codeWriter.encode(text, BarcodeFormat.QR_CODE, width, height)
+            for (x in 0 until width) {
+                for (y in 0 until height) {
+                    val color = if (bitMatrix[x, y]) Color.BLACK else Color.WHITE
+                    bitmap.setPixel(x, y, color)
+                }
+            }
+        } catch (e: WriterException) {
+
+            Log.d(TAG, "generateQRCode: ${e.message}")
+
+        }
+        return bitmap
     }
 
 }

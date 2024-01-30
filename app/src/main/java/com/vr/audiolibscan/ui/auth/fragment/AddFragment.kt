@@ -26,6 +26,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.vr.audiolibscan.R
+import com.vr.audiolibscan.databinding.FragmentAddBinding
 import com.vr.audiolibscan.tools.ImageUtils
 import com.vr.audiolibscan.tools.showSnack
 import com.vr.audiolibscan.ui.auth.AdminActivity
@@ -35,6 +36,7 @@ import kotlinx.coroutines.tasks.await
 import java.util.UUID
 
 class AddFragment : Fragment() {
+    lateinit var binding: FragmentAddBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
     private lateinit var storage: FirebaseStorage
@@ -49,11 +51,35 @@ class AddFragment : Fragment() {
     private lateinit var etPenjelasan: EditText
     private val REQUEST_CODE_COVER = 1
 
+    var namaBarang = ""
+    var penjelasan = ""
+    var coverImageUrl = ""
+    //generate kode barang
+    var kodeBarang = ""
+    //meta
+
+    var title = ""
+    var creator = ""
+    var subject = ""
+    var description = ""
+    var publisher = ""
+    var contributor = ""
+    var date = ""
+    var type = ""
+    var format = ""
+    var identifier = ""
+    var source = ""
+    var language = ""
+    var relation = ""
+    var coverage = ""
+    var rights = ""
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_add, container, false)
+        binding = FragmentAddBinding.inflate(inflater)
+        return binding.root
     }
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(itemView, savedInstanceState)
@@ -71,7 +97,6 @@ class AddFragment : Fragment() {
 
         btnAdd = itemView.findViewById(R.id.btnAdd)
         etNamaBarang = itemView.findViewById(R.id.etNamaBarang)
-        etKodeBarang = itemView.findViewById(R.id.etKodeBarang)
         etPenjelasan = itemView.findViewById(R.id.etPenjelasan)
     }
     private fun initClick(){
@@ -82,12 +107,34 @@ class AddFragment : Fragment() {
             startActivityForResult(intent, REQUEST_CODE_COVER)
         }
         btnAdd.setOnClickListener {
-            val namaBarang = etNamaBarang.text.toString()
-            val kodeBarang = etKodeBarang.text.toString()
-            val penjelasan = etPenjelasan.text.toString()
+             namaBarang = etNamaBarang.text.toString()
+             penjelasan = etPenjelasan.text.toString()
+            //generate kode barang
+             kodeBarang = UUID.randomUUID().toString()
+            //meta
+             title = binding.etMetaTitle.text.toString()
+             creator = binding.etMetaCreator.text.toString()
+             subject = binding.etMetaSubject.text.toString()
+             description = binding.etMetaDescription.text.toString()
+             publisher = binding.etMetaPublisher.text.toString()
+             contributor = binding.etMetaContributor.text.toString()
+             date = binding.etMetaDate.text.toString()
+             type = binding.etMetaType.text.toString()
+             format = binding.etMetaFormat.text.toString()
+             identifier = binding.etMetaIdentifier.text.toString()
+             source = binding.etMetaSource.text.toString()
+             language = binding.etMetaLanguage.text.toString()
+             relation = binding.etMetaRelation.text.toString()
+             coverage = binding.etMetaCoverage.text.toString()
+             rights = binding.etMetaRights.text.toString()
 
             // Periksa apakah semua field yang diperlukan terisi
-            if (namaBarang.isNotEmpty() && kodeBarang.isNotEmpty() && penjelasan.isNotEmpty()) {
+            if (namaBarang.isNotEmpty() && kodeBarang.isNotEmpty() && penjelasan.isNotEmpty()
+                && title.isNotEmpty() && creator.isNotEmpty() && subject.isNotEmpty() && description.isNotEmpty()
+                && publisher.isNotEmpty() && contributor.isNotEmpty() && date.isNotEmpty() && type.isNotEmpty()
+                && format.isNotEmpty() && identifier.isNotEmpty() && source.isNotEmpty() && language.isNotEmpty()
+                && relation.isNotEmpty() && coverage.isNotEmpty() && rights.isNotEmpty()
+                ) {
                 // Tampilkan dialog progress saat mengunggah
                 val progressDialog = ProgressDialog(context)
                 progressDialog.setMessage("Mengunggah barang...")
@@ -96,15 +143,9 @@ class AddFragment : Fragment() {
                 // Kompres dan unggah gambar di latar belakang
                 lifecycleScope.launch(Dispatchers.IO) {
                     // Kompres dan unggah foto sampul
-                    var coverImageUrl = ""
                     coverImageUrl = uploadImage(imagesList[0])
                     // Tambahkan detail produk ke Firestore
-                    addBarangToFirestore(
-                        namaBarang,
-                        kodeBarang,
-                        penjelasan,
-                        coverImageUrl
-                    )
+                    addBarangToFirestore()
                     progressDialog.dismiss()
                 }
             } else {
@@ -136,12 +177,7 @@ class AddFragment : Fragment() {
 
         return compressedImageUri
     }
-    private fun addBarangToFirestore(
-        namaBarang: String,
-        kodeBarang: String,
-        penjelasan: String,
-        coverImageUrl: String
-    ) {
+    private fun addBarangToFirestore() {
         val currentUser = FirebaseAuth.getInstance().currentUser
         val barangData = hashMapOf(
             "barangId" to UUID.randomUUID().toString(),
@@ -150,6 +186,22 @@ class AddFragment : Fragment() {
             "kodeBarang" to kodeBarang,
             "penjelasan" to penjelasan,
             "fotoBarang" to coverImageUrl,
+            //meta
+            "title" to title,
+            "creator" to creator,
+            "subject" to subject,
+            "description" to description,
+            "publisher" to publisher,
+            "contributor" to contributor,
+            "date" to date,
+            "type" to type,
+            "format" to format,
+            "identifier" to identifier,
+            "source" to source,
+            "language" to language,
+            "relation" to relation,
+            "coverage" to coverage,
+            "rights" to rights
         )
 
         val db = FirebaseFirestore.getInstance()

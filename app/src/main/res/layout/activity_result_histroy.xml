@@ -1,137 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:minHeight="@dimen/_400sdp"
+    android:id="@+id/coordinator"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <!-- Background image full width and height -->
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@color/colorPrimary"
-        android:scaleType="centerCrop" />
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:background="@android:color/transparent">
-        <LinearLayout
+        android:layout_height="match_parent">
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/_20sdp">
-            <!-- Card view with white background -->
+            android:layout_height="match_parent">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/_270sdp"
-                android:layout_marginTop="50dp"
-                android:padding="@dimen/_8sdp"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:background="@drawable/rounded_button_background"
-                android:backgroundTint="@color/white">
-
-                <LinearLayout
+                android:orientation="vertical">
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:background="@drawable/top_rounded_bg"
-                    android:padding="16dp">
-                    <ImageView
-                        android:id="@+id/fotoBarang"
-                        android:layout_width="@dimen/_140sdp"
-                        android:layout_height="@dimen/_130sdp"
-                        android:src="@drawable/no_image"
-                        android:layout_marginTop="@dimen/_15sdp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginRight="@dimen/_5sdp" />
-                    <TextView
-                        android:id="@+id/tvNamaBarang"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Nama Barang"
-                        android:layout_marginTop="@dimen/_15sdp"
-                        android:textSize="@dimen/_20sdp"
-                        android:textStyle="bold" />
-                    <TextView
-                        android:id="@+id/tvKodeBarang"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="kodebarang"
-                        android:textSize="@dimen/_15sdp" />
-                    <TextView
-                        android:id="@+id/tvPenjelasan"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Silahkan tekan tombol dibawah untuk memulai scan"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:textSize="@dimen/_15sdp" />
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="@dimen/_20sdp">
-                        <LinearLayout
-                            android:id="@+id/btnBack"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/rounded_button_background"
-                            android:gravity="center_vertical"
-                            android:backgroundTint="@color/secondary"
-                            android:orientation="horizontal">
-                            <ImageView
-                                android:layout_width="@dimen/_38sdp"
-                                android:layout_height="@dimen/_38sdp"
-                                android:src="@drawable/ic_back"
-                                app:tint="@color/white"
-                                android:backgroundTint="@color/colorPrimary"
-                                android:layout_gravity="center_vertical"
-                                android:background="@drawable/background_rounded_blue"
-                                android:layout_marginRight="@dimen/_5sdp"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:id="@+id/btnReplay"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/rounded_button_background"
-                            android:gravity="center_vertical"
-                            android:backgroundTint="@color/secondary"
-                            android:layout_marginStart="@dimen/_10sdp"
-                            android:orientation="horizontal">
-                            <ImageView
-                                android:layout_width="@dimen/_38sdp"
-                                android:layout_height="@dimen/_38sdp"
-                                android:src="@drawable/ic_replay"
-                                app:tint="@color/white"
-                                android:backgroundTint="@color/colorPrimary"
-                                android:layout_gravity="center_vertical"
-                                android:background="@drawable/background_rounded_blue"
-                                android:layout_marginRight="@dimen/_5sdp"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:id="@+id/btnDownload"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/rounded_button_background"
-                            android:gravity="center_vertical"
-                            android:backgroundTint="@color/secondary"
-                            android:layout_marginStart="@dimen/_10sdp"
-                            android:orientation="horizontal">
-                            <ImageView
-                                android:layout_width="@dimen/_38sdp"
-                                android:layout_height="@dimen/_38sdp"
-                                android:src="@drawable/ic_download"
-                                app:tint="@color/white"
-                                android:backgroundTint="@color/colorPrimary"
-                                android:layout_gravity="center_vertical"
-                                android:background="@drawable/background_rounded_blue"
-                                android:layout_marginRight="@dimen/_5sdp"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
+                    android:layout_marginTop="16dp">
+                </com.google.android.material.tabs.TabLayout>
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp" />
             </LinearLayout>
-        </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
     </RelativeLayout>
-    <include layout="@layout/ly_bahasa"/>
-</RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

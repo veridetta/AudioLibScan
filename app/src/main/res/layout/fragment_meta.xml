@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/_16sdp">
+
+            <!-- Card view with white background -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/_270sdp"
+                android:padding="@dimen/_8sdp"
+                android:layout_gravity="center"
+                android:background="@drawable/rounded_button_background"
+                android:backgroundTint="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/top_rounded_bg"
+                    android:padding="@dimen/_8sdp">
+                    <!-- Meta 1: Title -->
+                    <TextView
+                        android:id="@+id/tv_meta_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="Title: "
+                        />
+
+                    <!-- Meta 2: Value -->
+                    <TextView
+                        android:id="@+id/tv_meta_title_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.title}"
+                        />
+
+                    <!-- Meta 1: Creator -->
+                    <TextView
+                        android:id="@+id/tv_meta_creator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="Creator: "
+                        />
+
+                    <!-- Meta 2: Value -->
+                    <TextView
+                        android:id="@+id/tv_meta_creator_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.creator}"
+                        />
+
+                    <!-- Meta 1: Subject -->
+                    <TextView
+                        android:id="@+id/tv_meta_subject"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="Subject: "
+                        />
+
+                    <!-- Meta 2: Value -->
+                    <TextView
+                        android:id="@+id/tv_meta_subject_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.subject}"
+                        />
+
+                    <!-- Meta 1: Description -->
+                    <TextView
+                        android:id="@+id/tv_meta_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="Description: "
+                        />
+
+                    <!-- Meta 2: Value -->
+                    <TextView
+                        android:id="@+id/tv_meta_description_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.description}"
+                        />
+                    <!-- Meta 1: Publisher -->
+                    <TextView
+                        android:id="@+id/tv_meta_publisher"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="Publisher: "
+                        />
+
+                    <!-- Meta 2: Value -->
+                    <TextView
+                        android:id="@+id/tv_meta_publisher_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.publisher}"
+                        />
+
+                    <!-- Meta 1: Contributor -->
+                    <TextView
+                        android:id="@+id/tv_meta_contributor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="Contributor: "
+                        />
+
+                    <!-- Meta 2: Value -->
+                    <TextView
+                        android:id="@+id/tv_meta_contributor_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.contributor}"
+                        />
+
+                    <!-- Meta 1: Date -->
+                    <TextView
+                        android:id="@+id/tv_meta_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="Date: "
+                        />
+
+                    <!-- Meta 2: Value -->
+                    <TextView
+                        android:id="@+id/tv_meta_date_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.date}"
+                        />
+
+                    <!-- Meta 1: Type -->
+                    <TextView
+                        android:id="@+id/tv_meta_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="Type: "
+                        />
+
+                    <!-- Meta 2: Value -->
+                    <TextView
+                        android:id="@+id/tv_meta_type_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.type}"
+                        />
+                    <!-- Meta 1: Format -->
+                    <TextView
+                        android:id="@+id/tv_meta_format"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="Format: "
+                        />
+
+                    <!-- Meta 2: Value -->
+                    <TextView
+                        android:id="@+id/tv_meta_format_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.format}"
+                        />
+
+                    <!-- Meta 1: Identifier -->
+                    <TextView
+                        android:id="@+id/tv_meta_identifier"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="Identifier: "
+                        />
+
+                    <!-- Meta 2: Value -->
+                    <TextView
+                        android:id="@+id/tv_meta_identifier_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.identifier}"
+                        />
+
+                    <!-- Meta 1: Source -->
+                    <TextView
+                        android:id="@+id/tv_meta_source"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="Source: "
+                        />
+
+                    <!-- Meta 2: Value -->
+                    <TextView
+                        android:id="@+id/tv_meta_source_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.source}"
+                        />
+
+                    <!-- Meta 1: Language -->
+                    <TextView
+                        android:id="@+id/tv_meta_language"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="Language: "
+                        />
+
+                    <!-- Meta 2: Value -->
+                    <TextView
+                        android:id="@+id/tv_meta_language_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.language}"
+                        />
+
+                    <!-- Meta 1: Relation -->
+                    <TextView
+                        android:id="@+id/tv_meta_relation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="Relation: "
+                        />
+
+                    <!-- Meta 2: Value -->
+                    <TextView
+                        android:id="@+id/tv_meta_relation_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.relation}"
+                        />
+
+                    <!-- Meta 1: Coverage -->
+                    <TextView
+                        android:id="@+id/tv_meta_coverage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="Coverage: "
+                        />
+
+                    <!-- Meta 2: Value -->
+                    <TextView
+                        android:id="@+id/tv_meta_coverage_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.coverage}"
+                        />
+
+                    <!-- Meta 1: Rights -->
+                    <TextView
+                        android:id="@+id/tv_meta_rights"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="Rights: "
+                        />
+
+                    <!-- Meta 2: Value -->
+                    <TextView
+                        android:id="@+id/tv_meta_rights_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.rights}"
+                        />
+
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

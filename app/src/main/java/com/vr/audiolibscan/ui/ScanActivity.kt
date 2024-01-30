@@ -10,7 +10,9 @@ import com.budiyev.android.codescanner.CodeScannerView
 import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
 import com.budiyev.android.codescanner.ScanMode
+import com.google.firebase.firestore.FirebaseFirestore
 import com.vr.audiolibscan.R
+import com.vr.audiolibscan.model.BarangModel
 import com.vr.audiolibscan.tools.showSnack
 import com.vr.audiolibscan.ui.auth.BarangActivity
 
@@ -37,7 +39,7 @@ class ScanActivity : AppCompatActivity() {
             runOnUiThread {
                 // Tampilkan hasil pemindaian di TextView
                 //intent ke barangActivity dengan mengirimkan data contents
-                val intent = Intent(this, BarangActivity::class.java)
+                val intent = Intent(this, ScanDirectActivity::class.java)
                 intent.putExtra("contents", it.text)
                 startActivity(intent)
                 finish()
