@@ -50,7 +50,6 @@ class ResultFragment : Fragment(), TextToSpeech.OnInitListener {
     lateinit var btnReplay : LinearLayout
     lateinit var btnDownload : LinearLayout
     lateinit var tvNamaBarang : TextView
-    lateinit var tvKodeBarang : TextView
     lateinit var tvPenjelasan : TextView
     lateinit var fotoBarang : ImageView
     lateinit var lyBahasa : RelativeLayout
@@ -61,7 +60,6 @@ class ResultFragment : Fragment(), TextToSpeech.OnInitListener {
     var tPenjelasan=""
     var tnama = ""
     var tImage=""
-    var kodeBarang=""
     private lateinit var textToSpeech: TextToSpeech
     var AudioSiap = false
 
@@ -111,7 +109,6 @@ class ResultFragment : Fragment(), TextToSpeech.OnInitListener {
         btnReplay = binding.btnReplay
         btnDownload = binding.btnDownload
         tvNamaBarang = binding.tvNamaBarang
-        tvKodeBarang = binding.tvKodeBarang
         tvPenjelasan = binding.tvPenjelasan
         fotoBarang = binding.fotoBarang
         btnIndo = binding.lyBahasa.btnIndo
@@ -197,13 +194,11 @@ class ResultFragment : Fragment(), TextToSpeech.OnInitListener {
         tnama = barang.nama.toString()
         tPenjelasan = barang.penjelasan.toString()
         tImage = barang.fotoBarang.toString()
-        kodeBarang = barang.kodeBarang.toString()
         //set data
         tvNamaBarang.text = tnama
-        tvKodeBarang.text = kodeBarang
         tvPenjelasan.text = tPenjelasan
         Glide.with(this).load(tImage).into(fotoBarang)
-        tPenjelasan = kodeBarang + " "+ tnama + " "+ tPenjelasan
+        tPenjelasan =  tnama + " "+ tPenjelasan
     }
     private fun speakText(text: String) {
         val volume = Bundle()

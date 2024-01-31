@@ -42,6 +42,7 @@ class ResultHistroyActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         initView()
         initViewPager()
+        initListener()
     }
     fun initView(){
         binding = ActivityResultHistroyBinding.inflate(layoutInflater)
@@ -69,5 +70,9 @@ class ResultHistroyActivity : AppCompatActivity(){
             }
         })
     }
-
+    fun initListener(){
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
+    }
 }
