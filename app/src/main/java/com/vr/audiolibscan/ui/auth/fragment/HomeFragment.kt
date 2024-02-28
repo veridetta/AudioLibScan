@@ -215,7 +215,7 @@ class HomeFragment : Fragment() {
             val file = File(requireContext().getExternalFilesDir(null).toString() + "/QRCode/" + barang.kodeBarang + ".png")
             val fOut = FileOutputStream(file)
             //quality yang bagus
-            bitmap.compress(Bitmap.CompressFormat.PNG, 200, fOut)
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut)
             fOut.flush()
             fOut.close()
             shareQRFile(file,barang.kodeBarang.toString())
