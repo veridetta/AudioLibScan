@@ -9,6 +9,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import android.content.Intent
 import android.provider.MediaStore
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
 import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory
@@ -23,6 +24,7 @@ import com.vr.audiolibscan.ui.auth.BarangActivity
 
 class MainActivity : AppCompatActivity() {
     lateinit var btnScan: LinearLayout
+    private lateinit var btnBack: ImageButton
     lateinit var btnHistory: LinearLayout
     lateinit var btnLogin: ImageView
     private val CAMERA_PERMISSION_REQUEST_CODE = 101 // Atur dengan kode permintaan izin yang Anda inginkan
@@ -42,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         btnScan = findViewById(R.id.btnScan)
         btnLogin = findViewById(R.id.btnLogin)
         btnHistory = findViewById(R.id.btnHistory)
+        btnBack = findViewById(R.id.btnBack)
     }
 
     private fun initClick() {
@@ -61,6 +64,9 @@ class MainActivity : AppCompatActivity() {
         btnHistory.setOnClickListener {
             val intent = Intent(this, HistroyActivity::class.java)
             startActivity(intent)
+        }
+        btnBack.setOnClickListener {
+            finish()
         }
     }
 

@@ -52,4 +52,13 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="informasi_konsumen">&lt;p&gt;Aplikasi audiolibscan merupakan aplikasi alih media berbasis audio digital sebagai upaya pelestarian koleksi memorabilia dan sebagai sarana dalam mengakses informasi koleksi memorabilia.&lt;/p&gt;
+&lt;p&gt;Cara penggunaan aplikasi audiolibscan&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Klik button masuk yang tersedia di halaman utama&lt;/li&gt;
+  &lt;li&gt;Arahkan kamera ke barcode yang terdapat pada setiap koleksi memorabilia&lt;/li&gt;
+  &lt;li&gt;Pilih bahasa&lt;/li&gt;
+  &lt;li&gt;Selanjutnya pengguna dapat mengakses dan mendapatkan informasi koleksi memorabilia sesuai dengan barcode yang telah di-scan&lt;/li&gt;
+&lt;/ol&gt;</string>
+
 </resources>

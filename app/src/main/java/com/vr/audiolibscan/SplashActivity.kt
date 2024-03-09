@@ -16,6 +16,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.initialize
 import com.vr.audiolibscan.ui.LoginActivity
 import com.vr.audiolibscan.ui.auth.AdminActivity
+import com.vr.audiolibscan.ui.home.HomeActivity
 
 class SplashActivity : AppCompatActivity() {
     private var progressBar: ProgressBar? = null
@@ -68,10 +69,10 @@ class SplashActivity : AppCompatActivity() {
                 //cek token firebase
                 when (userRole) {
                     "admin" -> AdminActivity::class.java
-                    else -> MainActivity::class.java // Handle unknown roles
+                    else -> HomeActivity::class.java // Handle unknown roles
                 }
             }
-            else -> MainActivity::class.java
+            else -> HomeActivity::class.java
         }
         //jika berhasil login maka update token
         if (isLoggedIn) {
