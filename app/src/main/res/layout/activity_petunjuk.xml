@@ -51,7 +51,6 @@
                     android:textSize="@dimen/_15sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
-                    android:gravity="center"
                     android:textColor="@color/colorPrimary" />
             </LinearLayout>
 
